@@ -1,0 +1,19 @@
+.w50{width: 50px;}
+.w100{width: 100px;}
+.w200{width: 200px;}
+.w400{width: 400px;}
+.w600{width: 600px;}
+.w800{width: 800px;}
+.w1000{width: 1000px;}
+.h40{height:40px;}
+.h100{height: 100px;}
+.center{margin:0px auto;}
+.mTop20{margin-top:20px;}
+.mH500{min-height: 500px;}
+.fleft{float:left;}
+.fright{float:right;}
+.clearboth{clear:both;}
+.clearleft{clear:left;}
+.clearright{clear:right;}
+.bradius5{border:none;border-radius: 5px;}
+.bradius3{border:none;border-radius: 3px;}

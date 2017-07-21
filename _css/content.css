@@ -1,0 +1,32 @@
+.kategoriBox {
+    width: 115px;
+    height: 95px;
+    float:left;
+    padding:10px;
+    margin:30px;
+    background-color:#fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px #ccc;
+}
+
+.kategoriBox:hover{
+    background-color:#f0ebeb;
+}
+
+#kategoriResim{
+    display: block;
+    margin: 0 auto;
+}
+
+.kategoriBox a:link, .kategoriBox a:visited {
+    
+    
+    display:block;
+    text-decoration: none;
+    font-size: 9px;
+    color: #333;
+}
+
+#kategoriSpan {
+    margin-top: 50px;
+}

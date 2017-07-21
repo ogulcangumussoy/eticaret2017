@@ -1,0 +1,25 @@
+aside#kategori ul {
+    
+    margin:0;
+    padding:0;
+    
+}
+
+
+#liKategori{
+    list-style: none;
+    width: 193px;
+    background: url('../_img/layout/kategoriMenuBG.png');
+    height: 25px;
+    margin-left: 7px;
+    
+}
+
+#aKategori:link, #aKategori:visited{
+    color:#333;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+  
+    line-height: 25px;
+}

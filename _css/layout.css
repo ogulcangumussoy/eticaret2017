@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20.Tem.2017, 12:11:43
+    Author     : Ogulcan
+*/
+
+body {
+    font-family: verdana,Arial,Helvetica,sans-serif;
+       
+
+}
+
+header {
+    background-color: #f4f1f1;
+}
+
+nav{
+        background-color: #f4f1f1;
+
+}
+#wrapper{
+     
+     overflow: hidden;
+}
+aside#kategori{
+    background-color: #fff;
+}
+
+aside#gundem{
+    background-color: #f00;
+    color:#fff;
+}
+
+footer{
+    background-color: burlywood;
+    color:#fff;
+    
+}
