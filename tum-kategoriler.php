@@ -49,7 +49,7 @@ $urunSor->execute();
            
             <div class="kategoriBox">
                   <a href="<?= $urunCek2['KategoriID'] ?>">
-                <img id="kategoriResim" src="_uploads/resim/urun-kategori/<?= $urunCek2['KategoriResim'] ?>"></img>
+                <img width="80px" height="70px" id="kategoriResim" src="_uploads/resim/urun-kategori/<?= $urunCek2['KategoriResim'] ?>"></img>
                 <center><span id="kategoriSpan"><?= $urunCek2['Kategori']?></span></center>
                   </a>
                 

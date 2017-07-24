@@ -31,8 +31,7 @@ if(isset($_POST['KategoriResimEkle']))
         
         
   
-        
-	$uploads_dir = '../../_uploads/resim/urun-kategori'; // karşı taraftan gelen resmin nereye kaydedileceğini belirtir.
+       $uploads_dir = '../../_uploads/resim/urun-kategori'; // karşı taraftan gelen resmin nereye kaydedileceğini belirtir.
 	@$tmp_name = $_FILES['KategoriResim']['tmp_name'];
 	@$name = $_FILES['KategoriResim']["name"];
 	$benzersizsayi=rand(20000,32000);
@@ -40,18 +39,18 @@ if(isset($_POST['KategoriResimEkle']))
 	$refimgyol=substr($uploads_dir,6)."/".$benzersizad.$name;
 	@move_uploaded_file($tmp_name, "$uploads_dir/$benzersizad$name");
 
-    
    
 	$kaydet=$db->prepare("INSERT INTO urun_kategori SET
-	Kategori=:kategori,
-        ParentID=:parentID,
+	Kategori=:Kategori,
+        ParentID=:ParentID,
 	KategoriResim=:KategoriResim");
 	$insert=$kaydet->execute(array(
-	'kategori' => $_POST['Kategori'],
-	'parentID' => $_POST['parentID'],
-	'KategoriResim' => $refimgyol
+	'Kategori' => $_POST['Kategori'],
+	'ParentID' => $parentID,
+	'KategoriResim' => $benzersizad.$name
         ));
 
+     	
 	
 
 
@@ -97,7 +96,7 @@ if(isset($_POST['KategoriResimEkle']))
         <fieldset>  
             <legend>Kategori Bilgileri</legend>
             <label for="Kategori">Kategori Adı</label>
-            <input type="hidden" name="parrentGizli" id="parrentGizli" />
+            <input type="hidden" name="parentGizli" id="parentGizli" value="<?= $kategoriCek['KategoriID']?>" />
             <input type="text" name="Kategori" id="Kategori" />
             
             <label for="KategoriResim">Kategori Resmi</label>
