@@ -52,7 +52,7 @@ $kategoriSor->execute();
             <?php while($urunCek=$urunSor->fetch(PDO::FETCH_ASSOC)) { ?>
             <div class="urunBox">
         
-            <img width="100px" src="<?= $urunCek['UrunResim'] ?>" />
+            <img width="110px" src="<?= $urunCek['UrunResim'] ?>" />
             <br>
                 <?= $urunCek['UrunAdi'] ?><br>
                 <?= $urunCek['UrunFiyat'] ?> + KDV

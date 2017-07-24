@@ -3,6 +3,8 @@
 //mysql sunucu bağlantısı 
 require_once '../../_inc/connection.php';
 
+//Kdv Bigileri için kayıt seti
+
 $kdvSor=$db->prepare("select * from urun_kdv");
 $kdvSor->execute();
 
@@ -21,11 +23,8 @@ if(isset($_POST['urunEkleSubmit'])) {
 	$uploads_dir = '../../_uploads/resim/urun'; // karşı taraftan gelen resmin nereye kaydedileceğini belirtir.
 	@$tmp_name = $_FILES['UrunResim']['tmp_name'];
 	@$name = $_FILES['UrunResim']["name"];
-	$benzersizsayi1=rand(20000,32000);
-	$benzersizsayi2=rand(20000,32000);
-	$benzersizsayi3=rand(20000,32000);
-	$benzersizsayi4=rand(20000,32000);
-	$benzersizad=$benzersizsayi1.$benzersizsayi2.$benzersizsayi3.$benzersizsayi4;
+	$benzersizsayi=rand(20000,32000);
+	$benzersizad=$benzersizsayi;
 	$refimgyol=substr($uploads_dir,6)."/".$benzersizad.$name;
 	@move_uploaded_file($tmp_name, "$uploads_dir/$benzersizad$name");
 
@@ -49,10 +48,10 @@ if(isset($_POST['urunEkleSubmit'])) {
 
 	if($insert)	{
 
-		Header("Location:index.php?durum=ok");
+		Header("Location:../../index.php?durum=ok");
 	}else{
 
-		Header("Location:index.php?durum=no");
+		Header("Location:../../index.php?durum=no");
 	}	
 
 
@@ -91,7 +90,7 @@ if(isset($_POST['urunEkleSubmit'])) {
    ?>
     
     <h1>Ürün Ekle</h1>
-    <form action="<?= $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         
         <fieldset>
             <legend>Kategori ve KDV bilgisi</legend>
