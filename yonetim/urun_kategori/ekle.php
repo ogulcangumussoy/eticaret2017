@@ -24,7 +24,6 @@ if(isset($_GET['KategoriID']))
 
 if(isset($_POST['KategoriResimEkle']))
 {
-    echo 'Form Gönderildi.';
     
     //Formdan genel değerlerin alınması
     if(!empty($_POST['Kategori'])){
@@ -50,9 +49,15 @@ if(isset($_POST['KategoriResimEkle']))
 	'KategoriResim' => $benzersizad.$name
         ));
 
-     	
+     	if($insert)	{
 	
 
+		Header("Location:index.php?KategoriID=$KategoriID&durum=ok");
+	}else{
+
+		Header("Location:index.php?durum=no");
+	}
+	
 
 
 

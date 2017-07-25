@@ -1,9 +1,16 @@
 <?php
 require_once '../../_inc/connection.php';
 
-$kategoriSor=$db->prepare("SELECT * from urun_kategori");
-$kategoriSor->execute();
+
+//parentID değerinin alınması
+
+
+
+$kategoriSor=$db->prepare("SELECT * FROM urun_kategori WHERE ParentID=:parentIDDegeri");
+ $kategoriSor->execute(array(
+    'parentIDDegeri' => $_GET['ParentID']));
 $kategoriCount=$kategoriSor->rowCount();
+$kategoriCek=$kategoriSor->fetch(PDO::FETCH_ASSOC);
 
 
 //parent bul Fonksiyonu
@@ -19,6 +26,18 @@ function parent_bul($db,$parentID)
     return $parentCek['Kategori'];
 }
 
+function altkategori_bul($db,$parentID)
+{
+    $parentSor=$db->prepare("SELECT Kategori FROM urun_kategori WHERE ParentID= $parentID");
+    $parentSor->execute();
+    $parentCek=$parentSor->fetch(PDO::FETCH_ASSOC);
+    $num_row_parenSor=$parentSor->rowCount();
+    return $num_row_parenSor;
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +49,10 @@ function parent_bul($db,$parentID)
 <body>
     
     <h1>Kategoriler</h1>
-    <a href="ekle.php">Kategori Ekle</a>
+    <a href="ekle.php">Kategori Ekle</a><hr>
     <?php
+    $parentAdi= parent_bul($db, $kategoriCek['ParentID']);
+    echo "Bulunduğunuz Kategori : ".$parentAdi;
     echo "<p>Toplam Kategori Sayısı : <strong>$kategoriCount </strong></p>";
     ?>
     
@@ -39,27 +60,27 @@ function parent_bul($db,$parentID)
         <tr>
             <th>Kategori Resim</th>
             <th>Kategori Adı</th>
-            <th>Parent</th>
+            <th>Alt Kategori Sayısı</th>
             <th>Alt Kategori</th>
             
             <th>Düzenle</th>
         </tr>
         
-        <?php while($kategoriCek=$kategoriSor->fetch(PDO::FETCH_ASSOC)) {?>
+        <?php do{?>
         <tr>
             <td><img width="50" height="30" src="../../_uploads/resim/urun-kategori/<?= $kategoriCek['KategoriResim']?>"></img></td>
-            <td><?= $kategoriCek['Kategori'] ?></td>
             <td>
-                <?php if ($kategoriCek['ParentID']==0) :?>
-                <img width="25" src="../_img/uyari-icon.png" />
-                <?php else : ?>
+                <?php
+                $altKategoriSayisi= altkategori_bul($db,$kategoriCek['KategoriID']);
                 
-                
-                <?php $parenAdi=parent_bul($db,$kategoriCek['ParentID']);?>
-                <a href="index-altkategori.php?ParentID=<?= $kategoriCek['ParentID'] ?>"><?= $parenAdi?></a>
-                
+                if($altKategoriSayisi!=0): ?>
+                <a href="index-altkategori.php?ParentID=<?= $kategoriCek['KategoriID'] ?>"><?= $kategoriCek['Kategori'] ?></a>
+                <?php else:?>
+                <?= $kategoriCek['Kategori']; ?>
                 <?php endif;?>
+                
             </td>
+            <td><?= $altKategoriSayisi ;?></td>
             <td><a href="ekle.php?KategoriID=<?= $kategoriCek['KategoriID'] ?>"><img width="25" src="../_img/ekle-icon.png" /></a></td>
             <td>
                 
@@ -69,7 +90,7 @@ function parent_bul($db,$parentID)
                 
                 <a href="sil.php?KategoriID=<?= $kategoriCek['KategoriID'] ?>">Sil</a></td>
         </tr>
-        <?php }?>
+        <?php } while($kategoriCek=$kategoriSor->fetch(PDO::FETCH_ASSOC))?>
     </table>
 </body>
 </html>
