@@ -48,10 +48,10 @@ if(isset($_POST['urunEkleSubmit'])) {
 
 	if($insert)	{
 
-		Header("Location:../../index.php?durum=ok");
+		Header("Location:index.php?durum=ok");
 	}else{
 
-		Header("Location:../../index.php?durum=no");
+		Header("Location:index.php?durum=no");
 	}	
 
 
@@ -121,7 +121,10 @@ if(isset($_POST['urunEkleSubmit'])) {
       <label for="UrunFiyat">Ürün Fiyat</label>
       <input type="text" name="UrunFiyat" id="UrunFiyat"/>
       <label for="UrunAktif">Ürün Yayınlansın mı?</label>
-      <input type="checkbox" name="UrunAktif" id="UrunAktif"/>
+      <select id="UrunAktif" name="UrunAktif">
+            <option value="0">Pasif</option>
+            <option value="1">Aktif</option>
+      </select>
       <label for="UrunResim">Ürün Resim</label>
       <input type="file" name="UrunResim" id="UrunResim" />
   </fieldset>
