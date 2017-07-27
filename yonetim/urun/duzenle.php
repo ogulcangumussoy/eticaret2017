@@ -51,25 +51,22 @@ if(isset($_POST['urunDuzenleSubmit']))
     $urunAdi=$_POST['UrunAdi'];
     $urunFiyat=$_POST['UrunFiyat'];
     
-    if(isset($_POST['UrunAktif']))
-    {
-        $urunAktif=1;
-    } else {
-        $urunAktif=0;
-    }
+  
     echo "Ürün aktif değeri $urunAktif";
     
     $urunResim = $_FILES['UrunResim']['name'];
     
-    if (empty($urunResim)){
-        $urunResim=$urunCek['UrunResim'];
-    }
+   
+    
+    $aktif= $_POST['UrunAktif'];
+     print_r($aktif);
+
     
     //boş alan kabul edilmeyecek.
     //boş değilse devam edecek.
     
   
-    if(!empty($urunAdi) && !empty($urunFiyat)) {
+    if($_FILES['UrunResim']["size"] > 0) {
 
 	$uploads_dir = '../../_uploads/resim/urun'; // karşı taraftan gelen resmin nereye kaydedileceğini belirtir.
 	@$tmp_name = $_FILES['UrunResim']['tmp_name'];
@@ -87,34 +84,65 @@ if(isset($_POST['urunDuzenleSubmit']))
         UrunAktif=:urunAktif,
 	UrunResim=:urunResim
 	WHERE UrunID={$_POST['UrunID']}");
+        
 	$update=$duzenle->execute(array(
 	'kategoriID' => $_POST['KategoriID'],
 	'kdvID' => $_POST['KdvID'],
 	'urunAdi' => $_POST['UrunAdi'],
 	'urunFiyat' => $_POST['UrunFiyat'],
-        'urunAktif' => $_POST['UrunAktif'],
+        'urunAktif' => $aktif,
 	'urunResim' => $refimgyol
 	
 	));
 	$UrunID=$_POST['UrunID'];
-
-	if($update)	{
-		$resimsilunlink=$_POST['UrunResim'];
-		unlink("../../$resimsilunlink");
-
-		Header("Location:duzenle.php?UrunID=$UrunID&durum=ok");
-	}else{
-
-		Header("Location:duzenle.php?durum=no");
-	}
-
-
+        if($update)
+        {
+            $resimsilunlink=$_POST['eski_yol'];
+	    unlink("../../$resimsilunlink");
+            header("Location:index.php?UrunID=$urunID&Durum=ok");
+        }
+        else {
+            header("Location:index.php?UrunID=$urunID&Durum=no");
+        }
+	
 
 
-}else{
-	header("Location:duzenle.php?UrunID=$urunID&Hata=AlanBos");
 
+
+} else {
+    
+    $duzenle=$db->prepare("UPDATE urun SET
+	KategoriID=:kategoriID,
+	KdvID=:kdvID,
+	UrunAdi=:urunAdi,
+	UrunFiyat=:urunFiyat,
+        UrunAktif=:urunAktif
+	WHERE UrunID={$_POST['UrunID']}");
+        
+	$update=$duzenle->execute(array(
+	'kategoriID' => $_POST['KategoriID'],
+	'kdvID' => $_POST['KdvID'],
+	'urunAdi' => $_POST['UrunAdi'],
+	'urunFiyat' => $_POST['UrunFiyat'],
+        'urunAktif' => $aktif
+	));
+	$UrunID=$_POST['UrunID'];
+        
+        if($update)
+        {
+            
+            header("Location:index.php?UrunID=$urunID&Durum=ok");
+        }
+        else {
+            header("Location:index.php?UrunID=$urunID&Durum=no");
+        }
+    
 }
+ 
+
+	
+
+
 }
 
 
@@ -159,8 +187,8 @@ if(isset($_POST['urunDuzenleSubmit']))
     <form action="" method="post" enctype="multipart/form-data">
         
         <input type="hidden" name="UrunID" value="<?= $urunCek['UrunID'] ?>" />
-        <input type="hidden" name="UrunAktif" value="<?= $urunCek['UrunAktif'] ?>" />
         <input type="hidden" name="UrunResim" value="<?= $urunCek['UrunResim'] ?>" />
+         <input type="hidden" name="eski_yol" value="<?= $urunCek['UrunResim'] ?>" />
         
         
         <fieldset>
@@ -195,7 +223,19 @@ if(isset($_POST['urunDuzenleSubmit']))
             <label for="UrunResim">Yeni Resim</label>
             <input type="file" name="UrunResim" id="UrunResim"/><br><br>
             <label for="UrunAktif">Ürün Aktif mi?</label>
-            <input type="checkbox" name="UrunAktif" value="<?= $urunCek['UrunAktif']?>" <?php if($urunCek['UrunAktif']==1)echo 'checked="checked"';?>/>
+            <select id="UrunAktif" name="UrunAktif">
+            <?php if ($urunCek['UrunAktif']==0):?>
+            
+            <option value="0">Pasif</option>
+            <option value="1">Aktif</option>
+            
+            <?php else: ?>
+            
+            <option value="1">Aktif</option>
+            <option value="0">Pasif</option>
+            
+            <?php endif; ?>
+            </select>
             <hr>
             <input type="submit" name="urunDuzenleSubmit" value="Değişiklikleri Kaydet" />
         </fieldset>

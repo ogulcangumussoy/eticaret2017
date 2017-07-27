@@ -20,7 +20,7 @@ FROM
 urun
 INNER JOIN urun_kdv ON urun.KdvID = urun_kdv.KdvID
 INNER JOIN urun_kategori ON urun.KategoriID = urun_kategori.KategoriID
-WHERE UrunArsiv !=1
+WHERE UrunArsiv =1
 ");
 $urunSor->execute();
 $urunCek=$urunSor->fetch(PDO::FETCH_ASSOC);
@@ -55,11 +55,6 @@ $urunSayisi=$urunSor->rowCount();
             padding:3px;
             background-color: #ccc;
         }
-        
-        table a:link, a:visited
-        {
-            background-color:red; 
-        }
     </style>
 </head>
 <body>
@@ -68,7 +63,7 @@ $urunSayisi=$urunSor->rowCount();
     <?php
     echo "<p>Kayıtlı ürün sayısı $urunSayisi</p>";
     ?>
-    <p><a href="ekle.php">Ürün Ekle</a> | <a href="arsiv.php">Arşivi Göster</a></p>
+    <p><a href="ekle.php">Ürün Ekle</a> | <a href="index.php">Ürünleri Göster</a></p>
    
     <table>
         <tr>
@@ -107,7 +102,7 @@ $urunSayisi=$urunSor->rowCount();
                 
                 <a href="duzenle.php?UrunID=<?=$urunCek['UrunID'] ?>">Düzenle</a>
                 <hr>
-                <a href="arsivle.php?UrunID=<?= $urunCek['UrunID'] ?>">Arşivle</a>
+                <a href="arsivden-cikar.php?UrunID=<?= $urunCek['UrunID'] ?>">Arşivden Çıkar</a>
             
             </td>
             
