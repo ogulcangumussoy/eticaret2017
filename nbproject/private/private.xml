@@ -5,8 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/ETicaretSitesi2017/yonetim/urun/index.php</file>
             <file>file:/C:/xampp/htdocs/ETicaretSitesi2017/yonetim/urun/duzenle.php</file>
-            <file>file:/C:/xampp/htdocs/ETicaretSitesi2017/yonetim/urun/ekle.php</file>
-            <file>file:/C:/xampp/htdocs/ETicaretSitesi2017/yonetim/urun_kategori/index-altkategori.php</file>
+            <file>file:/C:/xampp/htdocs/ETicaretSitesi2017/yonetim/urun/arsivle.php</file>
+            <file>file:/C:/xampp/htdocs/ETicaretSitesi2017/yonetim/urun/arsivden-cikar.php</file>
+            <file>file:/C:/xampp/htdocs/ETicaretSitesi2017/yonetim/urun/arsiv.php</file>
         </group>
     </open-files>
 </project-private>

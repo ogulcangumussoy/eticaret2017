@@ -1,0 +1,134 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 28.Tem.2017, 19:41:26
+    Author     : Ogulcan
+*/
+
+*
+{
+    margin:0;
+    padding:0;
+}
+body
+{
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    color:#333;
+    background: url("../../../_img/layout/bgGold.jpg") repeat-x;
+    background-color: #e7e4dd;
+}
+
+header
+{
+    width: 1100px;
+    height: 81px;
+    margin:0 auto;
+    background: url("../../../_img/layout/headerBG2.jpg") repeat-x;
+    position: relative;
+    font-family: Trebuchet MS,sans-serif;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border:none;
+    
+}
+
+header h1
+{
+    line-height: 81px;
+    color:#fff;
+    font-size: 2.5em;
+    margin-left: 20px;
+    width: 400px;
+    float:left;
+    font-weight: normal;
+}
+
+header #kullaniciLogin
+{
+    width: 400px;
+    height: 81px;
+    position:absolute;
+    right: 0;
+    color:#fff;
+    line-height: 81px;
+    font-size: 12px;
+    font-weight: bold;
+    
+}
+
+header #kullaniciLogin img
+{
+    vertical-align: middle;
+    padding-left: 5px;
+}
+
+nav
+{
+width:1100px;
+overflow: hidden;
+margin:0 auto;
+
+}
+nav table td h3 
+{
+    font-size:1em;
+    color:#f00;
+    margin:3px 0;
+}
+
+nav table td img
+{
+ vertical-align: middle;
+ padding-right: 5px;
+}
+
+nav table td
+{
+   font-size: 0.8em; 
+   margin-left: 10px;
+}
+
+nav table #mesafe
+{
+    padding-left: 10px;
+}
+
+nav table td a:hover
+{
+    text-decoration: none;
+    color:#f00; 
+    
+}
+
+section
+{
+    width: 1100px;
+    min-height: 750px;
+    margin:0 auto;
+    background-color:#fff;
+    border:none; 
+}
+
+footer
+{
+    width: 1100px;
+    height: 81px;
+    margin:0 auto;
+    background: url("../../../_img/layout/headerBG2.jpg") repeat-x;
+    position: relative;
+    font-family: Trebuchet MS,sans-serif;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border:none; 
+    
+}
+
+footer p
+{
+    line-height: 81px;
+    text-align: center;
+    color:#fff;
+}
