@@ -50,49 +50,7 @@ $urunSayisi=$urunSor->rowCount();
     
     <style>
         
-        table#urunListe
-        {
-            width: 1100px;
-        }
-        
-        table#urunListe td{
-            font-family: verdana;
-            font-size: 10px;
-            padding:5px;
-            background-color: #c7e0e3;
-            text-align: center;
-        }
-        table#urunListe th{
-            font-size: 14px;
-            font-family: verdana;
-            background-color: #f00;
-            color:#fff;
-            padding: 5px;
-        }
-        
-        table#urunListe img .UrunResim{
-            border: 1px solid #666;
-            border-radius: 3px;
-            padding:3px;
-            background-color: #ccc;
-        }
-        
-        
-        
-        table#urunListe td a:link,table#urunListe td a:visited
-        {
-            background-color:#ccc;
-            color:#f00;
-            padding:5px;
-            margin:0 5px;
-            text-decoration: none; 
-            
-        }
-        table#urunListe td a:hover
-        {
-             color:#fff;
-             background-color: #f00;
-        }
+
     </style>
 </head>
 <body>
@@ -119,7 +77,7 @@ $urunSayisi=$urunSor->rowCount();
 			</ul>
                     <div id="tabs-1">
                         
-                        <table id="urunListe">
+                        <table>
                             <tr>
                                 <td><h3>Ürün</h3></td>
                                 <td></td>
@@ -133,7 +91,7 @@ $urunSayisi=$urunSor->rowCount();
                                 <td><img width="30px" src="../_img/layout/_duzenle.png" /><a href="index.php">Düzenle</a></td>
                                 <td>&nbsp;</td>
                                 <td id="mesafe"><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun_gosterim_turu/ekle.php">Ekle</a></td>
-                                <td><img width="30px" src="../_img/layout/_duzenle.png" /> <a href="../urun_gosterim_turu//index.php">Düzenle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /> <a href="../urun_gosterim_turu/index.php">Düzenle</a></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -192,7 +150,7 @@ $urunSayisi=$urunSor->rowCount();
     ?>
     <p><a href="ekle.php">Ürün Ekle</a> | <a href="arsiv.php">Arşivi Göster</a></p>
    
-    <table>
+    <table id="urunListe">
         <tr>
         <th>Ürün Resim</th>
         <th>Ürün Adı</th>
@@ -224,11 +182,11 @@ $urunSayisi=$urunSor->rowCount();
                 <?php endif; ?>
                 
             </td>
-            <td style="width: 125px; "><?= date("d/m/Y H:i", strtotime($urunCek['UrunTarih'])) ?></td>
+            <td><?= date("d/m/Y H:i", strtotime($urunCek['UrunTarih'])) ?></td>
             <td>
                 
                 <a href="duzenle.php?UrunID=<?=$urunCek['UrunID'] ?>">Düzenle</a>
-                <hr>
+                <hr><br>
                 <a href="arsivle.php?UrunID=<?= $urunCek['UrunID'] ?>">Arşivle</a>
             
             </td>

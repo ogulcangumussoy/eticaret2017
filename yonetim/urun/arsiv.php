@@ -31,41 +31,123 @@ $urunSayisi=$urunSor->rowCount();
 <html>
     <head>
         <meta charset="UTF-8">
-    <title>Ürünler</title>
-    <style>
-        
-        table td{
-            font-family: verdana;
-            font-size: 10px;
-            padding:5px;
-            background-color: #c7e0e3;
-            text-align: center;
-        }
-        table th{
-            font-size: 14px;
-            font-family: verdana;
-            background-color: #f00;
-            color:#fff;
-            padding: 5px;
-        }
-        
-        table img .UrunResim{
-            border: 1px solid #666;
-            border-radius: 3px;
-            padding:3px;
-            background-color: #ccc;
-        }
-    </style>
+    <title>Ürünler > Arşiv</title>
+    
+    <link href="../css/tema/rcpanel/style.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="../js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+    
+    <!--Jquery Tab Başlangıcı -->
+    
+    <script type="text/javascript">
+			$(function(){
+				// Tabs
+				$('#tabs').tabs();
+			});
+		</script>
+<!--Jquery Tab Sonu -->
+    
+    
 </head>
 <body>
     
-    <h1>Ürünler</h1>
+    <header>
+        <h1>RCPanel</h1>
+        
+        <div id="kullaniciLogin">
+            <img width="30px" src="../_img/layout/_kullanici.png" /> Kullanıcı Adı
+            <img width="30px" src="../_img/layout/logout.png" /> Çıkış
+        </div>
+        
+    </header>
+    
+    <nav>
+      
+        <!-- Tabs -->
+		
+		<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Ürün Temel</a></li>
+				<li><a href="#tabs-2">Ürün Detay</a></li>
+				<li><a href="#tabs-3">Üyelik</a></li>
+			</ul>
+                    <div id="tabs-1">
+                        
+                        <table>
+                            <tr>
+                                <td><h3>Ürün</h3></td>
+                                <td></td>
+                                <td></td>
+                                <td id="mesafe"><h3>Gösterim Türü</h3></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun/ekle.php">Ekle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /><a href="../urun/index.php">Düzenle</a></td>
+                                <td>&nbsp;</td>
+                                <td id="mesafe"><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun_gosterim_turu/ekle.php">Ekle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /> <a href="../urun_gosterim_turu//index.php">Düzenle</a></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            
+                            <tr>
+                                <td><h3>Ürün Kategori</h3></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            
+                            <tr>
+                                <td ><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun_kategori/ekle.php">Ekle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /><a href="../urun_kategori/index.php">Düzenle</a></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            
+                            <tr>
+                                <td><h3>Ürün KDV</h3></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            
+                            <tr>
+                                <td><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun_kdv/ekle.php">Ekle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /> <a href="../urun_kdv/index.php">Düzenle</a></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            
+                            
+                        </table>
+
+                    </div>
+			
+		</div>
+
+
+        
+    </nav>
+    
+    <section>
+       <h1>Ürünler</h1>
     <?php
     echo "<p>Kayıtlı ürün sayısı $urunSayisi</p>";
     ?>
     <p><a href="ekle.php">Ürün Ekle</a> | <a href="index.php">Ürünleri Göster</a></p>
    
-    <table>
+    <table id="urunListe">
         <tr>
         <th>Ürün Resim</th>
         <th>Ürün Adı</th>
@@ -80,10 +162,10 @@ $urunSayisi=$urunSor->rowCount();
         <?php do{ ?>
         <tr>
         
-            <td><img class="UrunResim" height="75" src="../../<?= $urunCek['UrunResim'] ?>" /></td>
-            <td><?= $urunCek['UrunAdi'] ?></td>
-            <td><?= $urunCek['Kategori'] ?></td> 
-            <td><?= $urunCek['UrunFiyat']  ?></td>
+            <td width="80"><img class="UrunResim" width="75" height="65" src="../../<?= $urunCek['UrunResim'] ?>" /></td>
+            <td width="200"><?= $urunCek['UrunAdi'] ?></td>
+            <td width="150"><?= $urunCek['Kategori'] ?></td> 
+            <td width="80"><?= $urunCek['UrunFiyat']  ?></td>
             <td><?= $urunCek['Kdv'] ?></td>
             <td>
                 <?php
@@ -97,11 +179,11 @@ $urunSayisi=$urunSor->rowCount();
                 <?php endif; ?>
                 
             </td>
-            <td><?= date("d/m/Y H:i", strtotime($urunCek['UrunTarih'])) ?></td>
+            <td width="100"><?= date("d/m/Y H:i", strtotime($urunCek['UrunTarih'])) ?></td>
             <td>
                 
                 <a href="duzenle.php?UrunID=<?=$urunCek['UrunID'] ?>">Düzenle</a>
-                <hr>
+                <hr><br>
                 <a href="arsivden-cikar.php?UrunID=<?= $urunCek['UrunID'] ?>">Arşivden Çıkar</a>
             
             </td>
@@ -110,5 +192,11 @@ $urunSayisi=$urunSor->rowCount();
         <?php } while ($urunCek=$urunSor->fetch(PDO::FETCH_ASSOC))?>
     </table>
     <p><a href="ekle.php">Ürün Ekle</a></p>
+        
+    </section>
+
+    <footer>
+        <p>RCPanel Eticaret Yönetim Paneli 2017 © </p>
+    </footer>
 </body>
 </html>

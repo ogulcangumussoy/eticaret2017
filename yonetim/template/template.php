@@ -1,6 +1,6 @@
 <?php
 //mysql sunucu bağlantısı 
-require_once '../_inc/connection.php';
+require_once '../../_inc/connection.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,10 +8,10 @@ require_once '../_inc/connection.php';
         <meta charset="UTF-8">
     <title></title>
     
-    <link href="css/tema/rcpanel/style.css" rel="stylesheet" type="text/css" />
-    <link href="css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" type="text/css"/>
-    <script src="js/jquery-1.8.0.min.js" type="text/javascript"></script>
-    <script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+    <link href="../css/tema/rcpanel/style.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="../js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
     
     <!--Jquery Tab Başlangıcı -->
     
@@ -31,8 +31,8 @@ require_once '../_inc/connection.php';
         <h1>RCPanel</h1>
         
         <div id="kullaniciLogin">
-            <img width="30px" src="_img/layout/_kullanici.png" /> Kullanıcı Adı
-            <img width="30px" src="_img/layout/logout.png" /> Çıkış
+            <img width="30px" src="../_img/layout/_kullanici.png" /> Kullanıcı Adı
+            <img width="30px" src="../_img/layout/logout.png" /> Çıkış
         </div>
         
     </header>
@@ -59,11 +59,11 @@ require_once '../_inc/connection.php';
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><img width="30px" src="_img/layout/_ekle.png" /><a href="urun/ekle.php">Ekle</a></td>
-                                <td><img width="30px" src="_img/layout/_duzenle.png" /><a href="urun/index.php">Düzenle</a></td>
+                                <td><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun/ekle.php">Ekle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /><a href="../urun/index.php">Düzenle</a></td>
                                 <td>&nbsp;</td>
-                                <td id="mesafe"><img width="30px" src="_img/layout/_ekle.png" /><a href="urun_gosterim_turu/ekle.php">Ekle</a></td>
-                                <td><img width="30px" src="_img/layout/_duzenle.png" /> <a href="urun_gosterim_turu//index.php">Düzenle</a></td>
+                                <td id="mesafe"><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun_gosterim_turu/ekle.php">Ekle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /> <a href="../urun_gosterim_turu//index.php">Düzenle</a></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -78,8 +78,8 @@ require_once '../_inc/connection.php';
                             </tr>
                             
                             <tr>
-                                <td ><img width="30px" src="_img/layout/_ekle.png" /><a href="urun_kategori/ekle.php">Ekle</a></td>
-                                <td><img width="30px" src="_img/layout/_duzenle.png" /><a href="urun_kategori/index.php">Düzenle</a></td>
+                                <td ><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun_kategori/ekle.php">Ekle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /><a href="../urun_kategori/index.php">Düzenle</a></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -96,8 +96,8 @@ require_once '../_inc/connection.php';
                             </tr>
                             
                             <tr>
-                                <td><img width="30px" src="_img/layout/_ekle.png" /><a href="urun_kdv/ekle.php">Ekle</a></td>
-                                <td><img width="30px" src="_img/layout/_duzenle.png" /> <a href="urun_kdv/index.php">Düzenle</a></td>
+                                <td><img width="30px" src="../_img/layout/_ekle.png" /><a href="../urun_kdv/ekle.php">Ekle</a></td>
+                                <td><img width="30px" src="../_img/layout/_duzenle.png" /> <a href="../urun_kdv/index.php">Düzenle</a></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
