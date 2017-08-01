@@ -1,100 +1,71 @@
 <?php
+//mysql sunucu bağlantısı 
 require_once '../../_inc/connection.php';
 
+//form gönderildiğinde
 
-$kategoriID= $_GET['KategoriID'];
-//Düzenlenecek Olan Kategori Seti
-$kategoriSor=$db->prepare("SELECT * FROM urun_kategori WHERE KategoriID=:kategoriID");
-$kategoriSor->execute(
-        array( 'kategoriID' => $_GET['KategoriID']));
-$kategoriCek=$kategoriSor->fetch(PDO::FETCH_ASSOC);
-
-        
-//Parent Kayıt Seti
-
-$parentSor=$db->prepare("SELECT * FROM urun_kategori");
-$parentSor->execute();
-$parentCek=$parentSor->fetch(PDO::FETCH_ASSOC);
-
-//Form Gönderildiyse
-
-if(isset($_POST['kategoriDuzenleSubmit']))
+if(isset($_POST['uyeSeviyeEkleSubmit']))
 {
-    //echo 'Form Gönderildi';
-    $kategori=$_POST['Kategori'];
-    $parentID=$_POST['ParentID'];
-    $kategoriResim=$_FILES['KategoriResim']['name'];
+    $seviye = $_POST['Seviye'];
+    $seviyeIcon= $_FILES['SeviyeIcon']['name'];
     
-if($_FILES['KategoriResim']["size"] > 0) {
-
-	$uploads_dir = '../../_uploads/resim/urun-kategori'; // karşı taraftan gelen resmin nereye kaydedileceğini belirtir.
-	@$tmp_name = $_FILES['KategoriResim']['tmp_name'];
-	@$name = $_FILES['KategoriResim']["name"];
+    if(!empty($seviye) && !empty($seviyeIcon))
+    {
+        //boş değilse işlemlere devam et.
+        $uploads_dir = '../../_uploads/resim/uye/seviye'; // karşı taraftan gelen resmin nereye kaydedileceğini belirtir.
+	@$tmp_name = $_FILES['SeviyeIcon']['tmp_name'];
+	@$name = $_FILES['SeviyeIcon']["name"];
 	$benzersizsayi=rand(20000,32000);
 	$benzersizad=$benzersizsayi;
 	$refimgyol=$benzersizad.$name;
 	@move_uploaded_file($tmp_name, "$uploads_dir/$benzersizad$name");
 
-	$duzenle=$db->prepare("UPDATE urun_kategori SET
-	Kategori=:kategori,
-	ParentID=:parentID,
-	KategoriResim=:kategoriResim
-	WHERE KategoriID={$_POST['KategoriID']}");
+
+ $kaydet=$db->prepare("INSERT INTO uye_seviye SET
+                Seviye=:seviye,
+                SeviyeIcon=:seviyeIcon
+                    ");
+        $insert=$kaydet->execute(array(
+                'seviye' => $seviye,
+                'seviyeIcon'=> $refimgyol));
+
+	if($insert)	{
+
+		Header("Location:index.php?durum=ok");
+	}else{
+
+		Header("Location:index.php?durum=no");
+	}	
+            
         
-	$update=$duzenle->execute(array(
-	'kategori' => $_POST['Kategori'],
-	'parentID' => $_POST['ParentID'],
-	'kategoriResim' => $refimgyol
-	
-	));
-	$KategoriID=$_POST['KategoriID'];
-        if($update)
-        {
-            $resimsilunlink=$_POST['eski_yol'];
-	    unlink("../../_uploads/resim/urun-kategori/$resimsilunlink");
-            header("Location:index.php?KategoriID=$kategoriID&Durum=ok");
-        }
-        else {
-            header("Location:index.php?KategoriID=$kategoriID&Durum=no");
-        }
-	
-
-
-
-
-} else {
-   $duzenle=$db->prepare("UPDATE urun_kategori SET
-	Kategori=:kategori,
-	ParentID=:parentID
-	WHERE KategoriID={$_POST['KategoriID']}");
+    }elseif (empty($seviye)) {
+        header("Location:ekle.php?Hata=AlanBos");
+    }
+    elseif (!empty($seviye) && empty($seviyeIcon)) {
         
-	$update=$duzenle->execute(array(
-	'kategori' => $_POST['Kategori'],
-	'parentID' => $_POST['ParentID']
-	));
-	$KategoriID=$_POST['KategoriID'];
-        if($update)
-        {
-            $resimsilunlink=$_POST['eski_yol'];
-	    unlink("../../$resimsilunlink");
-            header("Location:index.php?KategoriID=$kategoriID&Durum=ok");
-        }
-        else {
-            header("Location:index.php?KategoriID=$kategoriID&Durum=no");
-        }
-    
+ $kaydet=$db->prepare("INSERT INTO uye_seviye SET
+                Seviye=:seviye,
+                SeviyeIcon=:seviyeIcon
+                    ");
+        $insert=$kaydet->execute(array(
+                'seviye' => $seviye,
+                'seviyeIcon'=> $seviyeIcon));
+
+	if($insert)	{
+
+		Header("Location:index.php?durum=ok");
+	}else{
+
+		Header("Location:index.php?durum=no");
+	}
+    }
 }
- 
-
-}
-
-
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-    <title>Kategori > Düzenle</title>
+    <title>Üye > Seviye Ekle</title>
     
     <link href="../css/tema/rcpanel/style.css" rel="stylesheet" type="text/css" />
     <link href="../css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" type="text/css"/>
@@ -102,6 +73,10 @@ if($_FILES['KategoriResim']["size"] > 0) {
     <script src="../js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
     
     <!--Jquery Tab Başlangıcı -->
+    
+    <style>
+
+    </style>
     
     <script type="text/javascript">
 			$(function(){
@@ -204,46 +179,34 @@ if($_FILES['KategoriResim']["size"] > 0) {
     </nav>
     
     <section>
-      <?php
-    if(isset($_GET['Hata']))
-    {
-        echo '<p>Lütfen Kategori Adını Boş Bırakmayınız</p>';
-    }
-    ?>
-    <h1>Kategori Düzenle</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="KategoriID" value="<?= $kategoriID ?>"  />
-        <input type="hidden" name="eski_yol" value="<?= $kategoriCek['KategoriResim'] ?>"  />
-     
-       
-        <fieldset>
-            <legend>Kategori Bilgileri</legend>
-             <label for="ParentID">Parent Kategorisi</label>
-             <select name="ParentID" id="ParentID">
-                 
-                 <?php do {?>
-                 
-                 <?php if ($kategoriCek['ParentID']==0) {?>
-                 
-                 <option value="0" selected="selected">Parent Kategorisi Yok</option>
-                 
-                 <?php } else {?>
-                        <option value="<?= $parentCek['KategoriID']?>"<?php if($parentCek['KategoriID']== $kategoriCek['ParentID']) echo 'selected="selected";' ?>><?= $parentCek['Kategori'] ?></option>  
-                 <?php } ?>        
-                 
-                 <?php } while ($parentCek=$parentSor->fetch(PDO::FETCH_ASSOC)) ?>
-             </select>
-            <label for="Kategori">Kategori</label>
-            <input type="text" name="Kategori" id="Kategori" value="<?= $kategoriCek['Kategori']?>" />
-            <br>
-            <b><p>Şu anki Resim</p><b>
-             <img src="../../_uploads/resim/urun-kategori/<?= $kategoriCek['KategoriResim']?>" width="75px" />
-             <label for="KategoriResim">Kategori Resim</label>
-             <input type="file" name="KategoriResim" id="KategoriResim" /><br>
-            <input type="submit" name="kategoriDuzenleSubmit" value="Değişiklikleri Kaydet" />
-           
-        </fieldset>
-    </form>
+
+        <h1>Üye Seviye Ekle</h1>
+        
+        
+            <?php 
+            if (isset($_GET['Hata']))
+            {
+                echo "<div class='formHataAlanBos'>";
+                echo "<p>Lütfen Seviye Adını Giriniz.</p>";
+                echo "</div>";
+            }
+            
+            ?>
+        
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            
+            <fieldset>
+                <legend>Üye Seviye Bilgileri</legend>
+               
+                <label for="Seviye">Seviye</label>
+                <input type="text" name="Seviye" id="Seviye" />
+                <label for="SeviyeIcon">Seviye İkon</label>
+                <input type="file" name="SeviyeIcon" id="SeviyeIcon" />
+                <input type="submit" name="uyeSeviyeEkleSubmit" value="Üye Seviye Ekle" />
+            </fieldset>
+            
+        </form>
         
     </section>
 
